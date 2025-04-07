@@ -5,52 +5,107 @@
  */
 
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/backlight.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/rgb.h>
 
 / {
-        keymap {
-                compatible = "zmk,keymap";
+    behaviors {
+        hrl: homerow_left {
+            compatible = "zmk,behavior-hold-tap";
+            label = "Homerow_Left";
+            bindings = <&kp>, <&kp>;
 
-                default_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
-// | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
-                        bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
-   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                  &kp LGUI &mo 1 &kp SPACE   &kp RET &mo 2 &kp RALT
-                        >;
-                };
-                lower_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
-                        bindings = <
-   &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &kp LSHFT  &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                                    &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
-                        >;
-                };
-
-                raise_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
-                        bindings = <
-   &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
-   &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                             &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT
-                        >;
-                };
+            #binding-cells = <2>;
+            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 40 41 39>;
+            tapping-term-ms = <200>;
         };
+
+        hrr: homerow_right {
+            compatible = "zmk,behavior-hold-tap";
+            label = "Homerow_Right";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        main {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
+            // | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
+            // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
+            //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
+
+            bindings = <
+&kp GRAVE  &kp Q         &kp W         &kp E        &kp R        &kp T          &kp Y      &kp U        &kp I        &kp O         &kp P            &kp BSPC
+&kp TAB    &hrl LSHFT A  &hrl LCTRL S  &hrl LALT D  &hrl LCMD F  &kp G          &kp H      &hrr RGUI J  &hrr RALT K  &hrr RCTRL L  &hrr RSHFT SEMI  &kp SQT
+&kp ESC    &kp Z         &kp X         &kp C        &kp V        &kp B          &kp N      &kp M        &kp COMMA    &kp DOT       &kp FSLH         &kp RET
+                                       &mo 3        &mo 2        &lt 1 SPACE    &kp SPACE  &none        &kp DEL
+            >;
+        };
+
+        num {
+            bindings = <
+&none      &kp N1         &kp N2        &kp N3    &kp N4      &kp N5         &kp CLEAR  &kp N7  &kp N8  &kp N9  &kp PLUS      &kp MINUS
+&none      &kp EXCL       &kp AT_SIGN   &kp HASH  &kp DOLLAR  &kp PERCENT    &kp N0     &kp N4  &kp N5  &kp N6  &kp ASTERISK  &kp FSLH
+&kp CARET  &kp AMPERSAND  &kp ASTERISK  &kp LPAR  &kp RPAR    &kp EQUAL      &kp DOT    &kp N1  &kp N2  &kp N3  &kp RET       &kp BSPC
+                                        &none     &none       &none          &trans     &kp N0  &trans
+            >;
+        };
+
+        nav {
+            bindings = <
+&none       &none       &none      &none       &none        &none    &kp C_NEXT        &kp HOME  &kp UP    &kp PG_UP  &kp C_VOL_UP  &kp C_AC_ZOOM_IN
+&none       &caps_word  &none      &none       &none        &none    &kp C_PLAY_PAUSE  &kp LEFT  &kp DOWN  &kp RIGHT  &kp C_VOL_DN  &kp C_AC_ZOOM_OUT
+&kp K_REDO  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &none    &kp C_PREV        &kp END   &none     &kp PG_DN  &kp C_MUTE    &kp LG(C_AC_ZOOM)
+                                   &none       &none        &none    &none             &none     &none
+            >;
+        };
+
+        function {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
+            // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
+            // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
+            //                    | GUI |     | SPC |   | ENT |     | ALT |
+
+            bindings = <
+&bt BT_CLR  &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4       &kp F12  &kp F7  &kp F8  &kp F9  &none  &sys_reset
+&bl BL_INC  &rgb_ug RGB_HUI  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF  &rgb_ug RGB_SPI  &rgb_ug RGB_BRI    &kp F11  &kp F4  &kp F5  &kp F6  &none  &bootloader
+&bl BL_DEC  &rgb_ug RGB_HUD  &rgb_ug RGB_SAD  &rgb_ug RGB_EFR  &rgb_ug RGB_SPD  &rgb_ug RGB_BRD    &kp F10  &kp F1  &kp F2  &kp F3  &none  &studio_unlock
+                                              &none            &none            &none              &none    &none   &none
+            >;
+        };
+
+        code {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
+            // | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+            // | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+            //                    | GUI |     | SPC |   | ENT |     | ALT |
+
+            bindings = <
+&none  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp LPAR  &kp RPAR  &kp ASTERISK  &kp BSPC
+&none  &none     &none   &none     &none     &none        &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT  &none         &kp GRAVE
+&none  &none     &none   &none     &none     &none        &kp UNDER  &kp PLUS   &kp LBRC  &kp RBRC  &kp PIPE      &kp TILDE
+                         &none     &none     &none        &none      &none      &none
+            >;
+        };
+
+        game {
+            bindings = <
+&kp TAB    &kp Q  &kp W  &kp E  &kp R  &kp T        &none  &none     &kp UP    &none      &none  &none
+&kp LSHFT  &kp A  &kp S  &kp D  &kp F  &kp G        &none  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &none
+&kp LCTRL  &kp Z  &kp X  &kp C  &kp V  &kp B        &none  &none     &none     &none      &none  &none
+                         &to 0  &none  &kp SPACE    &none  &none     &none
+            >;
+        };
+    };
 };
