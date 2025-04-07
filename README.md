@@ -1,4 +1,6 @@
-### [ZMK Firmware](https://zmk.dev/docs/customization)
+#### [ZMK Firmware](https://zmk.dev/docs/customization)
+#### [ZMK Studio](https://zmk.dev/docs/features/studio)
+#### [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/)
 ---
 Components Used:
 - ProMicro NRF52840: [amazon](https://www.amazon.com/dp/B0DCZM8DS9?ref=ppx_yo2ov_dt_b_fed_asin_title)
